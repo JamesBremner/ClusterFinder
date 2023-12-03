@@ -1,11 +1,12 @@
 #source file search paths
-VPATH = ./src ../raven-set ../KMeans/src
+VPATH = ./src ../raven-set ../KMeans/src ../quadtree/src
 
 	# compiler include search paths
 INCS = -I./include \
 	-I../windex/include \
 	-I../raven-set \
 	-I../KMeans/src \
+	-I../quadtree/src \
 	-I../../code_ext/boost/boost1_78 \
 
 LIBS = \
@@ -28,6 +29,7 @@ OBJ_starter = \
 	$(ODIR)/cxy.o \
 	$(ODIR)/KMeans.o \
 	$(ODIR)/cDataPoint.o \
+	$(ODIR)/quadtree.o \
 	$(ODIR)/cRunWatch.o \
 
 ### COMPILE
