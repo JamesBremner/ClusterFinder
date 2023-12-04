@@ -24,7 +24,8 @@ void generate(double dim, double count)
 {
     theDim = dim;
 
-    srand(time(NULL));
+    //srand(time(NULL));
+    srand(123);
 
     std::vector<cxy> vCenter;
     for (int ck = 0; ck < 5; ck++)
@@ -46,10 +47,12 @@ void generate(double dim, double count)
 
 void buildQuadtree()
 {
+
     raven::set::cRunWatch aWatcher("buildQuadtree");
-    theQuadtree = new quad::cCell(quad::cPoint(theDim / 2, theDim / 2), theDim);
-    for (cxy &t : vTarget)
-        theQuadtree->insert(quad::cPoint(t.x, t.y));
+    theQuadtree = new quad::cCell(cxy(theDim / 2, theDim / 2), theDim);
+    for (cxy &t : vTarget) {
+        theQuadtree->insert(t);
+    }
 }
 
 int countNeighbors(const cxy &aim)
@@ -92,7 +95,7 @@ void quadSearch(double radius)
             cxy aim((int)x, (int)y);
 
             int count = theQuadtree->find(
-                                       quad::cCell(quad::cPoint(aim.x, aim.y), 2 * radius))
+                                       quad::cCell(cxy(aim.x, aim.y), 2 * radius))
                             .size();
 
             if (count > bestCount)
@@ -183,7 +186,7 @@ cGUI::cGUI()
 
     raven::set::cRunWatch::Start();
     radius = 40;
-    generate(500, 500);
+    generate(500, 5);
     search(eAlgo::grid);
     search(eAlgo::kmeans);
     search(eAlgo::quad);
